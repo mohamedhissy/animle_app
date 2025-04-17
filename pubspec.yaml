@@ -39,6 +39,7 @@ dependencies:
   get: ^4.6.5
   supabase_flutter: ^1.10.23
   flutter_slider_drawer: ^2.1.1
+  google_mobile_ads: ^3.0.0
 
 
 

@@ -126,6 +126,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../core/app_open_ad_manager.dart';
 import '../../../../core/resources/manager_assets.dart';
 import '../../../../core/resources/manager_colors.dart';
 import '../../../../core/resources/manager_font_sizes.dart';
@@ -141,6 +142,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppOpenAdManager().showAdIfAvailable();
     return GetBuilder<HomeController>(builder: (controller) {
       return Scaffold(
         key: controller.scaffoldKey,
