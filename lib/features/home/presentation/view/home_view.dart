@@ -143,8 +143,9 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppOpenAdManager().showAdIfAvailable();
-    return GetBuilder<HomeController>(builder: (controller) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      AppOpenAdManager().showAdIfAvailable();
+    });    return GetBuilder<HomeController>(builder: (controller) {
       return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(

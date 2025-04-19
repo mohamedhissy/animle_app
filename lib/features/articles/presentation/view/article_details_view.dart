@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import '../../../../core/services/notification_service.dart';
+
 
 class ArticleDetailsView extends StatelessWidget {
   final String title;
@@ -18,6 +20,11 @@ class ArticleDetailsView extends StatelessWidget {
     final parsedParagraphs = paragraphs != null
         ? List<Map<String, dynamic>>.from(jsonDecode(paragraphs!))
         : [];
+
+    NotificationService.instance.showNotification(
+      title: 'اضافة مقال',
+      body: 'تمت اضافة مقال جديد: $title',
+    );
 
     return Directionality(
       textDirection: TextDirection.rtl,

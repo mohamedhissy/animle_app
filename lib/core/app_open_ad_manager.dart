@@ -8,18 +8,28 @@ class AppOpenAdManager {
   AppOpenAd? _appOpenAd;
   bool _isAdAvailable = false;
 
-  final String adUnitId = 'ca-app-pub-7977077663821325/4506072820'; // ← هذا هو الإعلان الحقيقي الخاص بك
+  // استخدم الإعلان الحقيقي هنا
+  // final String adUnitId = 'ca-app-pub-7977077663821325/4506072820';
+  final String adUnitId = 'ca-app-pub-7977077663821325/7322849997';
+
 
   void loadAd() {
+    print('📥 [AppOpenAdManager] Trying to load App Open Ad with ID: $adUnitId');
+
     AppOpenAd.load(
       adUnitId: adUnitId,
       request: const AdRequest(),
       adLoadCallback: AppOpenAdLoadCallback(
         onAdLoaded: (ad) {
+          print('✅ [AppOpenAdManager] App Open Ad loaded successfully');
           _appOpenAd = ad;
           _isAdAvailable = true;
         },
-        onAdFailedToLoad: (error) {
+        onAdFailedToLoad: (LoadAdError error) {
+          print('❌ [AppOpenAdManager] Failed to load App Open Ad');
+          print('🧠 Error code: ${error.code}');
+          print('📛 Error domain: ${error.domain}');
+          print('📄 Error message: ${error.message}');
           _isAdAvailable = false;
         },
       ),
@@ -29,18 +39,22 @@ class AppOpenAdManager {
 
   void showAdIfAvailable() {
     if (_isAdAvailable && _appOpenAd != null) {
+      print('🚀 [AppOpenAdManager] Showing App Open Ad...');
       _appOpenAd!.fullScreenContentCallback = FullScreenContentCallback(
         onAdDismissedFullScreenContent: (ad) {
+          print('🧹 [AppOpenAdManager] Ad dismissed. Reloading...');
           _isAdAvailable = false;
-          loadAd(); // إعادة التحميل بعد العرض
+          loadAd();
         },
         onAdFailedToShowFullScreenContent: (ad, error) {
+          print('❌ [AppOpenAdManager] Failed to show App Open Ad: $error');
           _isAdAvailable = false;
         },
       );
       _appOpenAd!.show();
     } else {
-      loadAd(); // في حال لم يكن هناك إعلان، نحاول تحميل واحد جديد
+      print('⚠️ [AppOpenAdManager] No ad available to show. Attempting to load one...');
+      loadAd();
     }
   }
 }

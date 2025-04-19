@@ -41,6 +41,12 @@ dependencies:
   flutter_slider_drawer: ^2.1.1
   google_mobile_ads: ^3.0.0
   url_launcher: ^6.2.4
+  firebase_core: ^2.24.2
+  firebase_messaging: ^14.7.6
+  flutter_local_notifications: ^16.2.0
+
+
+
 
 
 
